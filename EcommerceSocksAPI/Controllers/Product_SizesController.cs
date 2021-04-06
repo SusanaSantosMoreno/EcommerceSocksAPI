@@ -16,9 +16,11 @@ namespace EcommerceSocksAPI.Controllers {
 
         public Product_SizesController (Ecommerce_socksRepository repository) { this.repository = repository; }
 
-        [HttpGet("{id}")]
-        public ActionResult<List<Product_sizes>> GetProduct_Sizes (int id) {
-            return this.repository.GetProduct_Sizes_Views(id);
+
+        [HttpGet]
+        [Route("[action]/{product_id}")]
+        public ActionResult<List<Product_sizes>> GetProduct_Sizes (int product_id) {
+            return this.repository.GetProduct_Sizes_Views(product_id);
         }
 
         [HttpGet]

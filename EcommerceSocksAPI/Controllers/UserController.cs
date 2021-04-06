@@ -33,6 +33,23 @@ namespace EcommerceSocksAPI.Controllers {
             return this.repository.GetUserByEmail(email);
         }
 
+        [HttpPost]
+        [Route("[action]")]
+        public void AddUser (Users user) {
+            this.repository.AddUser(user.Users_email, user.Users_name, user.User_password);
+        }
 
+        [HttpPut]
+        [Route("[action]")]
+        public void EditUser (Users user) {
+            this.repository.EditUser(user.Users_id, user.Users_name, user.Users_lastName, 
+                user.User_nationality, user.User_phone, user.User_birthDate, user.Users_gender);
+        }
+
+        [HttpPut]
+        [Route("[action]/{userId}/{password}")]
+        public void SetPassword (int userId, String password) {
+            this.repository.SetPassword(userId, password);
+        }
     }
 }

@@ -1,7 +1,6 @@
 ﻿using EcommerceSocksAPI.Data;
 using EcommerceSocksAPI.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Caching.Memory;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,11 +11,11 @@ namespace EcommerceSocksAPI.Repositories {
     public class Ecommerce_socksRepository {
 
         private Ecommerce_socksContext context;
-        private IMemoryCache memoryCache;
+        //private IMemoryCache memoryCache;
 
-        public Ecommerce_socksRepository(Ecommerce_socksContext context, IMemoryCache memoryCache) {
+        public Ecommerce_socksRepository(Ecommerce_socksContext context/*, IMemoryCache memoryCache*/) {
             this.context = context;
-            this.memoryCache = memoryCache;
+            //this.memoryCache = memoryCache;
         }
 
         #region PRODUCTS
@@ -174,17 +173,13 @@ namespace EcommerceSocksAPI.Repositories {
         }
 
         #region USERS
-        public bool AddUser (string email, string name, string password, string repeatPassword) {
-            if (password == repeatPassword) {
-                Users user = new Users(name, email, password);
-                user.Users_id = this.generateRandomId();
-                user.Users_gender = "M";
-                this.context.Users.Add(user);
-                this.context.SaveChanges();
-                return true;
-            } else {
-                return false;
-            }
+        public bool AddUser (string email, string name, string password) {
+            Users user = new Users(name, email, password);
+            user.Users_id = this.generateRandomId();
+            user.Users_gender = "M";
+            this.context.Users.Add(user);
+            this.context.SaveChanges();
+            return true;
         }
 
         public void EditUser (int user_id, String name, String lastName, String nationality,
@@ -222,8 +217,8 @@ namespace EcommerceSocksAPI.Repositories {
         }
     #endregion
 
-    #region FAVORITES
-    public void AddFavorite (int product_id, int user_id) {
+        #region FAVORITES
+        public void AddFavorite (int product_id, int user_id) {
             int lastId = 0;
             if(this.context.Favorites.Count() > 0) {
                 lastId = this.context.Favorites.OrderByDescending(x => x.Favorite_id).FirstOrDefault().Favorite_id;
@@ -319,7 +314,7 @@ namespace EcommerceSocksAPI.Repositories {
                 Where(x => x.Orders_user == user_id).ToList();
         }
 
-        public Orders GetOrdersById (int order_id) {
+        public Orders GetOrderById (int order_id) {
             return this.context.Orders.
                  Where(x => x.Orders_id == order_id).FirstOrDefault();
         }
