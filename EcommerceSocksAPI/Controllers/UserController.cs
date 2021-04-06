@@ -1,5 +1,6 @@
 ﻿using EcommerceSocksAPI.Models;
 using EcommerceSocksAPI.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -17,30 +18,35 @@ namespace EcommerceSocksAPI.Controllers {
         public UserController (Ecommerce_socksRepository repository) { this.repository = repository; }
 
         [HttpGet("{id}")]
+        [Authorize]
         public ActionResult<Users> GetUser (int id) {
             return this.repository.GetUser(id);
         }
 
         [HttpGet]
         [Route("[action]/{email}/{password}")]
+        [Authorize]
         public ActionResult<Users> GetUserByCredentials (string email, string password) {
             return this.repository.GetUser(email, password);
         }
 
         [HttpGet]
         [Route("[action]/{email}")]
+        [Authorize]
         public ActionResult<Users> GetUserByEmail (String email) {
             return this.repository.GetUserByEmail(email);
         }
 
         [HttpPost]
         [Route("[action]")]
+        [Authorize]
         public void AddUser (Users user) {
             this.repository.AddUser(user.Users_email, user.Users_name, user.User_password);
         }
 
         [HttpPut]
         [Route("[action]")]
+        [Authorize]
         public void EditUser (Users user) {
             this.repository.EditUser(user.Users_id, user.Users_name, user.Users_lastName, 
                 user.User_nationality, user.User_phone, user.User_birthDate, user.Users_gender);
@@ -48,6 +54,7 @@ namespace EcommerceSocksAPI.Controllers {
 
         [HttpPut]
         [Route("[action]/{userId}/{password}")]
+        [Authorize]
         public void SetPassword (int userId, String password) {
             this.repository.SetPassword(userId, password);
         }

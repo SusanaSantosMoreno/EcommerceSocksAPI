@@ -1,4 +1,5 @@
 using EcommerceSocksAPI.Data;
+using EcommerceSocksAPI.Helpers;
 using EcommerceSocksAPI.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -26,6 +27,7 @@ namespace EcommerceSocksAPI {
         public void ConfigureServices (IServiceCollection services) {
             String cadena = this.Configuration.GetConnectionString("azure");
             services.AddTransient<Ecommerce_socksRepository>();
+            services.AddTransient<HelperToken>();
             services.AddDbContext<Ecommerce_socksContext>(options => options.UseSqlServer(cadena));
 
             services.AddSwaggerGen(options => {
@@ -35,6 +37,8 @@ namespace EcommerceSocksAPI {
                     Description = "Api Ecommerce Socks 2021"
                 });
             });
+            HelperToken helpers = new HelperToken(this.Configuration);
+            services.AddAuthentication(helpers.GetAuthOptions()).AddJwtBearer(helpers.GetJwtBearerOptions());
             services.AddControllers();
         }
 
@@ -51,7 +55,7 @@ namespace EcommerceSocksAPI {
             app.UseHttpsRedirection();
 
             app.UseRouting();
-
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints => {

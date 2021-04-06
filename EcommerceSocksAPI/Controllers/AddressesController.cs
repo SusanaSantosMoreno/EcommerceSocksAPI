@@ -1,5 +1,6 @@
 ﻿using EcommerceSocksAPI.Models;
 using EcommerceSocksAPI.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -35,6 +36,7 @@ namespace EcommerceSocksAPI.Controllers {
 
         [HttpPost]
         [Route("[action]")]
+        [Authorize]
         public void AddAddress (Addresses address) {
             this.repository.AddAddress(address.Addresses_user, address.Addresses_name, address.Addresses_street,
                 address.Addresses_cp, address.Addresses_country, address.Addresses_province, address.Addresses_city);
@@ -42,6 +44,7 @@ namespace EcommerceSocksAPI.Controllers {
 
         [HttpPut]
         [Route("[action]")]
+        [Authorize]
         public void EditAddress (Addresses address) {
             this.repository.EditAddress(address.Addresses_id, address.Addresses_name, 
                 address.Addresses_street, address.Addresses_cp, address.Addresses_country, 
@@ -50,6 +53,7 @@ namespace EcommerceSocksAPI.Controllers {
 
         [HttpDelete]
         [Route("[action]/{addressId}")]
+        [Authorize]
         public void deleteAddress (int addressId) {
             this.repository.deleteAddress(addressId);
         }

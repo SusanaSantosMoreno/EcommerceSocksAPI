@@ -1,5 +1,6 @@
 ﻿using EcommerceSocksAPI.Models;
 using EcommerceSocksAPI.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -34,6 +35,7 @@ namespace EcommerceSocksAPI.Controllers {
 
         [HttpDelete]
         [Route("[action]/{userId}")]
+        [Authorize]
         public void RemoveUserFavorites (int userId) {
             this.repository.RemoveUserFavorites(userId);
         }

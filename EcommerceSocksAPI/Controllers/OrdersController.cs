@@ -1,5 +1,6 @@
 ﻿using EcommerceSocksAPI.Models;
 using EcommerceSocksAPI.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -36,12 +37,14 @@ namespace EcommerceSocksAPI.Controllers {
 
         [HttpPost]
         [Route("[action]")]
+        [Authorize]
         public void AddOrder (Orders order) {
             this.repository.AddOrder(order.Orders_user);
         }
 
         [HttpPost]
         [Route("[action]")]
+        [Authorize]
         public void AddOrderDetails (Order_details details) {
             this.repository.AddOrderDetails(details.Order_id, details.Product_id, details.Size_id, details.Amount);
         }

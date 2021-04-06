@@ -172,6 +172,13 @@ namespace EcommerceSocksAPI.Repositories {
             return randomValue;
         }
 
+        public LoginModel getAPIUser (String email, String password) {
+            if(email == "admin@admin.com" && password == "1234") {
+                LoginModel user = new LoginModel(email, password);
+                return user;
+            } else { return null; }
+        }
+
         #region USERS
         public bool AddUser (string email, string name, string password) {
             Users user = new Users(name, email, password);
