@@ -23,8 +23,8 @@ namespace EcommerceSocksAPI.Controllers {
 
         [HttpGet]
         [Route("[action]/{userId}")]
-        public ActionResult<List<Favorite>> GetUserFavorites (int user_id) {
-            return this.repository.GetFavorites(user_id);
+        public ActionResult<List<Favorite>> GetUserFavorites (int userId) {
+            return this.repository.GetFavorites(userId);
         }
 
         [HttpPost]
