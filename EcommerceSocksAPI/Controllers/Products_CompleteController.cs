@@ -29,7 +29,7 @@ namespace EcommerceSocksAPI.Controllers {
         }
 
         [HttpGet]
-        [Route("[action]/{category_id}")]
+        [Route("[action]/{product_id}")]
         public ActionResult<Product_Complete> GetProduct_Complete(int product_id) {
             return this.repository.GetProduct_Complete(product_id);
         }
