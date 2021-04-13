@@ -303,8 +303,8 @@ namespace EcommerceSocksAPI.Repositories {
 
         #region ORDERS
 
-        public Orders AddOrder (int user_id) {
-            Orders order = new Orders(this.generateRandomId(), user_id, DateTime.Now);
+        public Orders AddOrder (int order_id, int user_id) {
+            Orders order = new Orders(order_id, user_id, DateTime.Now);
             this.context.Orders.Add(order);
             this.context.SaveChanges();
             return order;

@@ -38,7 +38,7 @@ namespace EcommerceSocksAPI.Controllers {
         [HttpPost]
         [Route("[action]")]
         public void AddOrder (Orders order) {
-            this.repository.AddOrder(order.Orders_user);
+            this.repository.AddOrder(order.Orders_id, order.Orders_user);
         }
 
         [HttpPost]
