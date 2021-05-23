@@ -58,8 +58,6 @@ namespace EcommerceSocksAPI {
                 options.RoutePrefix = "";
             });
 
-            app.UseHttpsRedirection();
-
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();
