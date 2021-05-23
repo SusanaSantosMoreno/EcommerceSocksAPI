@@ -50,13 +50,15 @@ namespace EcommerceSocksAPI {
             if (env.IsDevelopment()) {
                 app.UseDeveloperExceptionPage();
             }
-            app.UseCors(options => options.AllowAnyOrigin());
-            app.UseHttpsRedirection();
+            
             app.UseSwagger();
             app.UseSwaggerUI(options => {
                 options.SwaggerEndpoint(url: "/swagger/v1/swagger.json", name: "Api v1");
                 options.RoutePrefix = "";
             });
+            
+            app.UseCors(options => options.AllowAnyOrigin());
+            app.UseHttpsRedirection();
 
             app.UseRouting();
             app.UseAuthentication();
